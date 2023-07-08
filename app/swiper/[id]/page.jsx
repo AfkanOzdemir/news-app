@@ -9,7 +9,6 @@ import Link from 'next/link'
 
 const NewsSwiper = ({ params }) => {
     const [news, setNews] = useState([])
-    console.log(params.id);
     useEffect(() => {
         const getNews = async () => {
             try {
@@ -24,7 +23,6 @@ const NewsSwiper = ({ params }) => {
                     }
                 });
                 setNews(response.data.result);
-                console.log(response.data.result);
             } catch (error) {
                 console.log(error);
             }

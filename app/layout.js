@@ -1,6 +1,5 @@
 import Navbar from './components/navbar'
 import './globals.css'
-import 'react-loading-skeleton/dist/skeleton.css'
 export const metadata = {
   title: 'Afkan Haber',
   description: 'Afkan Haber | En iyi haberler',
