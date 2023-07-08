@@ -3,9 +3,11 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/pagination';
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { Autoplay, Pagination } from 'swiper/modules';
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 const NewsSwiper = ({ params }) => {
     const [news, setNews] = useState([])
@@ -30,7 +32,10 @@ const NewsSwiper = ({ params }) => {
 
         getNews();
     }, [params]);
-    if (!news) return <div>Loading...</div>
+    if (!news) return <div className='w-full h-full flex items-center justify-center '>
+        <h1 className='text-black font-poppins font-black text-6xl'>
+            HABERLER YÜKLENİYOR...
+        </h1></div>
     else {
         return (
             <div className='w-full h-full font-poppins flex flex-col md:flex-row'>
@@ -53,9 +58,12 @@ const NewsSwiper = ({ params }) => {
                 <Swiper
                     slidesPerView={3}
                     spaceBetween={0}
-                    pagination={{
-                        clickable: true,
+                    autoplay={{
+                        delay: 2500,
+                        disableOnInteraction: false,
                     }}
+                    navigation={false}
+                    modules={[Autoplay]}
                     breakpoints={{
                         0: {
                             slidesPerView: 1,
@@ -92,11 +100,16 @@ const NewsSwiper = ({ params }) => {
                                         </p>
                                     </div>
                                     <div className='w-full h-56 md:h-72'>
-                                        <img src={item.image} alt="news" className='w-full h-full object-cover' />
+                                        <motion.img
+                                            whileHover={{
+                                                scale: 1.1,
+                                                transition: { duration: 0.5 },
+                                            }}
+                                            src={item.image} alt="news" className='w-full h-full object-cover' />
                                     </div>
                                     <div className='w-full h-full bg-opacity-50 flex flex-col items-start justify-start space-y-2 md:space-y-5'>
-                                        <div className='w-full h-auto text-left text-[#353535] font-poppins font-bold text-base md:text-2xl line-clamp-2'>{item.name}</div>
-                                        <div className='w-full h-auto text-left text-[#353535] font-poppins font-normal text-sm md:text-lg line-clamp-4'>{item.description}</div>
+                                        <motion.div className='w-full h-auto text-left text-[#353535] font-poppins font-bold text-base md:text-2xl line-clamp-2'>{item.name || <Skeleton />}</motion.div>
+                                        <motion.div className='w-full h-auto text-left text-[#353535] font-poppins font-normal text-sm md:text-lg line-clamp-4'>{item.description || <Skeleton count={4} />}</motion.div>
                                         <Link href={`${item.url}`} target='_blank'>
                                             <div className='w-full h-auto text-left text-[#353535] font-poppins font-bold text-base'>Devamını Oku</div>
                                         </Link>

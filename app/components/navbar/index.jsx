@@ -5,7 +5,10 @@ import React, { useState } from 'react'
 import { AiFillInstagram, AiFillFacebook, AiFillYoutube } from 'react-icons/ai'
 const Navbar = () => {
     const [active, setActive] = useState(false)
+    const handleClick = () => {
+        setActive(!active)
 
+    }
     const links = [
         {
             name: 'Genel',
@@ -36,7 +39,7 @@ const Navbar = () => {
             items-center justify-center absolute bg-primary text-white font-poppins font-black text-3xl cursor-pointer`}>
                 {
                     links.map((link, index) => (
-                        <Link key={index} href={link.path}>
+                        <Link key={index} href={link.path} onClick={handleClick}>
                             <motion.div
                                 className='p-2'
                                 whileHover={{ scale: 1.1 }}
@@ -55,7 +58,7 @@ const Navbar = () => {
                         <img src="/logowhite.png" alt="logo" className='w-10 h-10 object-contain' />
                     </Link>
                 </div>
-                <div className={`flex items-center justify-center transition-all ease-linear cursor-pointer ${active ? 'space-x-0' : 'space-x-1'} p-1 w-full h-auto`} onClick={() => setActive(!active)}>
+                <div className={`flex items-center justify-center transition-all ease-linear cursor-pointer ${active ? 'space-x-0' : 'space-x-1'} p-1 w-full h-auto`} onClick={handleClick}>
                     <div className={`w-[2px] h-8 bg-white transition-all ease-linear origin-center ${active ? 'rotate-45' : 'rotate-0'}`}></div>
                     <div className={`w-[2px] h-8 bg-white transition-all ease-linear origin-center ${active ? '-rotate-45' : 'rotate-0'}`}></div>
                 </div>
